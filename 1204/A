@@ -1,0 +1,10 @@
+for(i = left; i <= right; i++) {
+  if(x <= mid && (y > right || D[x] <= D[y])) {
+    tmp[i] = D[x +  1];
+  } else {
+    tmp[i] = D[y + 1];
+  }
+}
+for(i = left; i <= right; i++) {
+  D[i] = tmp[i];
+}
