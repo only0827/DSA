@@ -1,0 +1,34 @@
+if(left < p1) mergesort2(D, left, p1 - 1);
+if(p1 < p2) mergesort2(D, p1, p2 - 1);
+if(p2 < right) mergesort2(D, p2, right);
+
+void merge() {
+int tmp[N];
+int i = left, a = left, b = p1, c = p2;
+
+while(a < p1 && b < p2 && c <= right) {
+    if(D[a] <= D[b] && D[a] <= D[c]) tmp[i++] = D[a++];
+    else if(D[b] <= D[a] && D[b] <= D[c]) tmp[i++] = D[b++];
+    else tmp[i++] = D[c++];
+}
+
+while(a < p1 && b < p2) {
+    if(D[a] <= D[b]) tmp[i++] = D[a++];
+    else tmp[i++] = D[b++];
+}
+while(b < p2 && c <= right) {
+    if(D[b] <= D[c]) tmp[i++] = D[b++];
+    else tmp[i++] = D[c++];
+}
+while(a < p1 && c <= right) {
+    if(D[a] <= D[c]) tmp[i++] = D[a++];
+    else tmp[i++] = D[c++];
+}
+
+while(a < p1) tmp[i++] = D[a++];
+while(b < p2) tmp[i++] = D[b++];
+while(c <= right) tmp[i++] = D[c++];
+
+for(i = left; i <= right; i++) D[i] = tmp[i];
+print_array(D);
+}
