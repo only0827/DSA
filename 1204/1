@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/resource.h>
+
+#define N 5000
+
+void mergesort(int D[], int left, int right);
+void merge(int D[], int left, int mid, int right);
+int checkarray(int *array, int num);
+double sortingtime(struct rusage *ru1, struct rusage *ru2);
+
+int main(void) {
+    int D[N], i;//
+    struct rusage ru1, ru2;
+
+    srandom(time(NULL));
+    for(i = 0; i < N; i++) D[i] = random();
+
+      //First
+    getrusage(RUSAGE_SELF, &ru1);
+    mergesort(D, 0, N - 1);
+    getrusage(RUSAGE_SELF, &ru2);
+
+    if(checkarray(D, N) == 1) {
+        printf("merge__sortA(First) : %10.6f\n", sortingtime(&ru1, &ru2));
+    }
+      //Second
+    getrusage(RUSAGE_SELF, &ru1);
+    mergesort(D, 0, N - 1);
+    getrusage(RUSAGE_SELF, &ru2);
+
+    if(checkarray(D, N) == 1) {
+        printf("merge__sortB(Second) : %10.6f\n", sortingtime(&ru1, &ru2));
+    }
+  return 0;
+}
