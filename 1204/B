@@ -1,0 +1,12 @@
+while(D[i] < D[pivotindex]) {
+    i++;
+}
+while((i < j) && D[pivotindex] <= D[j]) {
+    j--;
+}
+if(i >= j) break;
+swap(D, i, j);
+
+
+if(left < pivotindex - 1) quicksortB(D, left, pivotindex - 1);
+if(pivotindex + 1 < right) quicksortB(D, pivotindex + 1, right);
